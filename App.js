@@ -1,17 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text,Button,FlatList, View} from 'react-native';
+import { StyleSheet, Text,Button, View} from 'react-native';
 import Search from './Components/Search/Search';
 import { useState } from 'react';
 import CoursesList from './Components/Search/Courses';
 import ModalItem from './Components/Modal/Modal';
+import NoFavsScreen from './Screens/NoFavsScreen';
+import FavListScreen from './Screens/FavListScreen';
+import CoursesListScreen from './Screens/CoursesListScreen';
 import MainList from './Components/List';
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 
 export default function App() {
-  const [FavCoursesList,setFavCoursesList]= useState(CoursesList)
+  const [loaded]=useFonts({Boogaloo:require('./assets/Fonts/Boogaloo-Regular.ttf')})
+  const [FavCoursesList,setFavCoursesList]= useState([])
   const [textInput,setTextInput] = useState('');
   const [itemList,setItemList] = useState(FavCoursesList);
   const [itemSelected, setItemSelected]=useState({});
   const [modalVisible, setModalVisible] = useState(false)
+  const [currentScreen,setCurrentScreen]=useState("Fav-Courses")
   const handleChangeText = (text) => {setTextInput(text)}
   const handleOnDelete = (item) => {
     setModalVisible(true)
@@ -31,20 +38,42 @@ export default function App() {
     setModalVisible(false)
     setItemSelected({})
   }
+  const handleSearch= (searchText) =>{
+    setTextInput('')
+    let filteredList = CoursesList.filter(function(item) {return item.value.includes(searchText)})
+    setItemList(filteredList)
+    setModalVisible(false)
+    setItemSelected({})
+  }
 
-  const handleViewFavs= () => {setItemList(FavCoursesList)}
+  const handleViewFavs= () => {setCurrentScreen("Fav-Courses")}
+  const handleViewCourses= () => {setCurrentScreen("Courses")}
 
-  return (
+  if (!loaded) return <AppLoading />
+  return ( 
     <View style={styles.container}>
-      <Search handleSearch={handleSearchFav} textInput={textInput} handleChangeText={handleChangeText} />
-
-      <MainList itemList={itemList} handleOnDelete={handleOnDelete} />
-      
-      <ModalItem handleConfirmDelete={handleConfirmDelete} modalVisible={modalVisible} itemSelected={itemSelected} />
-
-      <View style={styles.actions}>
-        <Button onPress={handleViewFavs} title='favoritos' />
+      {currentScreen==="Fav-Courses"? (
+      <View style={{flex:1}}>
+        <FavListScreen FavCoursesList={FavCoursesList} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav} titleStyle= {{fontFamily: "Boogaloo"}} textInput={textInput} handleChangeText={handleChangeText} />
+        <ModalItem handleConfirmDelete={handleConfirmDelete} modalVisible={modalVisible} itemSelected={itemSelected} />
+        <View style={styles.actions}>
+          <Button onPress={handleViewFavs} title='favoritos' />
+          <Button onPress={handleViewCourses} title='Cursos' />
+        </View>
       </View>
+      ) : (null)
+      }
+
+    {currentScreen==="Courses"? (
+      <View style={{flex:1}}>
+        <CoursesListScreen CoursesList={CoursesList} handleSearch={handleSearch} titleStyle= {{fontFamily: "Boogaloo"}} textInput={textInput} handleChangeText={handleChangeText} />
+        <View style={styles.actions}>
+          <Button onPress={handleViewFavs} title='favoritos' />
+          <Button onPress={handleViewCourses} title='Cursos' />
+        </View>
+      </View>
+      ) : (null)
+    }
 
       <StatusBar style="auto" />
     </View>
@@ -55,7 +84,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'skyblue',
     flex:1,
-    padding: 30
+    padding: 30,
+    paddingBottom:0
   },
   actions:{
     flexDirection: "row",

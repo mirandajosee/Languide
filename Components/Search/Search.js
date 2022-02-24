@@ -2,12 +2,12 @@ import React from "react"
 import {StyleSheet, Text,TextInput,Button, View} from "react-native"
 import CoursesList from "./Courses"
 
-function Search({handleSearch,textInput,handleChangeText}) {
+function Search({handleSearch,textInput,handleChangeText,title,titleStyle}) {
     return (
         <View>
             <View style={styles.actions}>
-            <Text style={styles.uppertext}>
-                TUS FAVORITOS
+            <Text style={{...styles.uppertext,...titleStyle}}>
+                {title}
             </Text>
             </View>
             <View style={styles.inputContainer}>
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
         fontSize:30,
         color: "royalblue",
         marginVertical: 20,
+        fontFamily:'Boogaloo'
       },
     actions:{
         flexDirection: "row",
