@@ -1,12 +1,12 @@
 import React from "react"
 import {StyleSheet,Button,Text,View,FlatList} from 'react-native';
 
-function MainList({itemList,handle}) {
+function MainList({itemList,handle,buttonTitle}) {
     return(
         <FlatList data={itemList} renderItem={({item}) => (
             <View style={styles.item}>
             <Text style={{color: "white", fontSize:20}}>{item.value}</Text>
-            <Button onPress={() => handle(item)} title='X' />
+            <Button onPress={() => handle(item)} title={buttonTitle} />
             </View>
           )} keyExtractor={item => item.id}/>
     )

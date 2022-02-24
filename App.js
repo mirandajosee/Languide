@@ -15,14 +15,18 @@ export default function App() {
   const [loaded]=useFonts({Boogaloo:require('./assets/Fonts/Boogaloo-Regular.ttf')})
   const [FavCoursesList,setFavCoursesList]= useState([])
   const [textInput,setTextInput] = useState('');
-  const [itemList,setItemList] = useState(FavCoursesList);
+  const [itemList,setItemList] = useState(CoursesList);
   const [itemSelected, setItemSelected]=useState({});
   const [modalVisible, setModalVisible] = useState(false)
-  const [currentScreen,setCurrentScreen]=useState("Fav-Courses")
+  const [currentScreen,setCurrentScreen]=useState("Courses")
   const handleChangeText = (text) => {setTextInput(text)}
   const handleOnDelete = (item) => {
     setModalVisible(true)
     setItemSelected(item)
+  }
+  const handleAddFav = (item) => {
+    setFavCoursesList([...FavCoursesList,item])
+    console.log(FavCoursesList)
   }
   const handleConfirmDelete= () =>{
     const {id} = itemSelected
@@ -46,8 +50,16 @@ export default function App() {
     setItemSelected({})
   }
 
-  const handleViewFavs= () => {setCurrentScreen("Fav-Courses")}
-  const handleViewCourses= () => {setCurrentScreen("Courses")}
+  const handleViewFavs= () => {
+    setCurrentScreen("Fav-Courses")
+    setItemList(FavCoursesList)
+    console.log("ITEM LIST TIENE: ")
+    console.log(itemList)
+  }
+  const handleViewCourses= () => {
+    setCurrentScreen("Courses")
+    setItemList(CoursesList)
+  }
 
   if (!loaded) return <AppLoading />
   return ( 
@@ -56,25 +68,21 @@ export default function App() {
       <View style={{flex:1}}>
         <FavListScreen FavCoursesList={FavCoursesList} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav} titleStyle= {{fontFamily: "Boogaloo"}} textInput={textInput} handleChangeText={handleChangeText} />
         <ModalItem handleConfirmDelete={handleConfirmDelete} modalVisible={modalVisible} itemSelected={itemSelected} />
-        <View style={styles.actions}>
-          <Button onPress={handleViewFavs} title='favoritos' />
-          <Button onPress={handleViewCourses} title='Cursos' />
-        </View>
       </View>
       ) : (null)
       }
 
     {currentScreen==="Courses"? (
       <View style={{flex:1}}>
-        <CoursesListScreen CoursesList={CoursesList} handleSearch={handleSearch} titleStyle= {{fontFamily: "Boogaloo"}} textInput={textInput} handleChangeText={handleChangeText} />
-        <View style={styles.actions}>
-          <Button onPress={handleViewFavs} title='favoritos' />
-          <Button onPress={handleViewCourses} title='Cursos' />
-        </View>
+        <CoursesListScreen handleAddFav={handleAddFav} itemList={itemList} handleSearch={handleSearch} titleStyle= {{fontFamily: "Boogaloo"}} textInput={textInput} handleChangeText={handleChangeText} />
       </View>
       ) : (null)
     }
 
+    <View style={styles.actions}>
+      <Button onPress={handleViewFavs} title='favoritos' />
+      <Button onPress={handleViewCourses} title='cursos' />
+    </View>
       <StatusBar style="auto" />
     </View>
   );

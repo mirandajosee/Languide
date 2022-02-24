@@ -2,16 +2,16 @@ import React from "react"
 import {StyleSheet, Text,TextInput,Button, View} from "react-native"
 import CoursesList from "./Courses"
 
-function Search({handleSearch,textInput,handleChangeText,title,titleStyle}) {
+function Search({handleSearch,textInput,handleChangeText,title}) {
     return (
         <View>
             <View style={styles.actions}>
-            <Text style={{...styles.uppertext,...titleStyle}}>
+            <Text style={{...styles.uppertext}}>
                 {title}
             </Text>
             </View>
             <View style={styles.inputContainer}>
-            <TextInput style={styles.input} value={textInput} placeholder='Busca un favorito' placeholderTextColor={"silver"} onChangeText={handleChangeText}/>
+            <TextInput style={styles.input} value={textInput} placeholder='Ingresa tu búsqueda' placeholderTextColor={"silver"} onChangeText={handleChangeText}/>
             <Button onPress={() => handleSearch(textInput)} title='Buscar' />
             </View>
         </View>
@@ -21,7 +21,7 @@ function Search({handleSearch,textInput,handleChangeText,title,titleStyle}) {
 const styles = StyleSheet.create({
     uppertext:{
         alignItems:"center",
-        fontSize:30,
+        fontSize:40,
         color: "royalblue",
         marginVertical: 20,
         fontFamily:'Boogaloo'
