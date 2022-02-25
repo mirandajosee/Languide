@@ -8,8 +8,7 @@ function FavListScreen({FavCoursesList,handleOnDelete,handleSearchFav,textInput,
     return(
         <View style={styles.ListScreen}>
             <Search handleSearch={handleSearchFav} textInput={textInput} handleChangeText={handleChangeText} title="TUS FAVORITOS"/>
-        
-            {FavCoursesList===[]? (<NoFavsScreen/>)
+            {(JSON.stringify(FavCoursesList))==JSON.stringify([])? (<NoFavsScreen/>)
             :
             (<MainList itemList={FavCoursesList} handle={handleOnDelete} buttonTitle={"x"} />)}
         </View>

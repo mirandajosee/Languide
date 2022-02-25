@@ -53,8 +53,7 @@ export default function App() {
   const handleViewFavs= () => {
     setCurrentScreen("Fav-Courses")
     setItemList(FavCoursesList)
-    console.log("ITEM LIST TIENE: ")
-    console.log(itemList)
+    console.log((FavCoursesList)==[])
   }
   const handleViewCourses= () => {
     setCurrentScreen("Courses")
