@@ -1,15 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text,Button, View} from 'react-native';
-import Search from './Components/Search/Search';
 import { useState } from 'react';
 import CoursesList from './Components/Search/Courses';
 import ModalItem from './Components/Modal/Modal';
-import NoFavsScreen from './Screens/NoFavsScreen';
 import FavListScreen from './Screens/FavListScreen';
 import CoursesListScreen from './Screens/CoursesListScreen';
-import MainList from './Components/List';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
+import StyleConstants from './Constants/StyleConstants';
 
 export default function App() {
   const [loaded]=useFonts({Boogaloo:require('./assets/Fonts/Boogaloo-Regular.ttf')})
@@ -88,7 +86,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'skyblue',
+    backgroundColor: StyleConstants.secondaryColor,
     flex:1,
     padding: 30,
     paddingBottom:0

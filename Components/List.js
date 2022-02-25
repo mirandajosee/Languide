@@ -1,5 +1,6 @@
 import React from "react"
 import {StyleSheet,Button,Text,View,FlatList} from 'react-native';
+import StyleConstants from "../Constants/StyleConstants";
 
 function MainList({itemList,handle,buttonTitle}) {
     return(
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1,
         borderRadius: 20,
-        backgroundColor: "royalblue",
+        backgroundColor: StyleConstants.mainColor,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",

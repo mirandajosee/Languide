@@ -1,6 +1,6 @@
 import React from "react"
 import {StyleSheet, Text,TextInput,Button, View} from "react-native"
-import CoursesList from "./Courses"
+import StyleConstants from "../../Constants/StyleConstants"
 
 function Search({handleSearch,textInput,handleChangeText,title}) {
     return (
@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
     uppertext:{
         alignItems:"center",
         fontSize:40,
-        color: "royalblue",
+        color: StyleConstants.mainColor,
         marginVertical: 20,
-        fontFamily:'Boogaloo'
+        fontFamily:StyleConstants.mainFont
       },
     actions:{
         flexDirection: "row",
