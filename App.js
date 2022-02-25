@@ -25,8 +25,8 @@ export default function App() {
     setItemSelected(item)
   }
   const handleAddFav = (item) => {
-    setFavCoursesList([...FavCoursesList,item])
-    console.log(FavCoursesList)
+    if (!FavCoursesList.includes(item)) {
+    setFavCoursesList([...FavCoursesList,item])}
   }
   const handleConfirmDelete= () =>{
     const {id} = itemSelected
