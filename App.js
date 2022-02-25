@@ -53,7 +53,6 @@ export default function App() {
   const handleViewFavs= () => {
     setCurrentScreen("Fav-Courses")
     setItemList(FavCoursesList)
-    console.log((FavCoursesList)==[])
   }
   const handleViewCourses= () => {
     setCurrentScreen("Courses")
@@ -65,7 +64,7 @@ export default function App() {
     <View style={styles.container}>
       {currentScreen==="Fav-Courses"? (
       <View style={{flex:1}}>
-        <FavListScreen FavCoursesList={FavCoursesList} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav} titleStyle= {{fontFamily: "Boogaloo"}} textInput={textInput} handleChangeText={handleChangeText} />
+        <FavListScreen itemList={itemList} FavCoursesList={FavCoursesList} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav} titleStyle= {{fontFamily: "Boogaloo"}} textInput={textInput} handleChangeText={handleChangeText} />
         <ModalItem handleConfirmDelete={handleConfirmDelete} modalVisible={modalVisible} itemSelected={itemSelected} />
       </View>
       ) : (null)

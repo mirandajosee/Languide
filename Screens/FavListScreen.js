@@ -4,13 +4,13 @@ import MainList from "../Components/List"
 import Search from "../Components/Search/Search"
 import NoFavsScreen from "./NoFavsScreen"
 
-function FavListScreen({FavCoursesList,handleOnDelete,handleSearchFav,textInput, handleChangeText}) {
+function FavListScreen({itemList,FavCoursesList,handleOnDelete,handleSearchFav,textInput, handleChangeText}) {
     return(
         <View style={styles.ListScreen}>
             <Search handleSearch={handleSearchFav} textInput={textInput} handleChangeText={handleChangeText} title="TUS FAVORITOS"/>
             {(JSON.stringify(FavCoursesList))==JSON.stringify([])? (<NoFavsScreen/>)
             :
-            (<MainList itemList={FavCoursesList} handle={handleOnDelete} buttonTitle={"x"} />)}
+            (<MainList itemList={itemList} handle={handleOnDelete} buttonTitle={"x"} />)}
         </View>
     )
 }
