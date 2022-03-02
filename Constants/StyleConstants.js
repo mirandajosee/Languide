@@ -3,5 +3,5 @@ export default {
     mainColor: 'royalblue',
     secondaryColor: 'skyblue',
     mainFont:'Boogaloo',
-    titleFontSize:30,
+    titleFontSize:40,
 }

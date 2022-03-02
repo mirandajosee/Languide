@@ -11,8 +11,8 @@ function Search({handleSearch,textInput,handleChangeText,title}) {
             </Text>
             </View>
             <View style={styles.inputContainer}>
-            <TextInput style={styles.input} value={textInput} placeholder='Ingresa tu búsqueda' placeholderTextColor={"silver"} onChangeText={handleChangeText}/>
-            <Button onPress={() => handleSearch(textInput)} title='Buscar' />
+              <TextInput style={styles.input} value={textInput} placeholder='Ingresa tu búsqueda' placeholderTextColor={"silver"} onChangeText={handleChangeText}/>
+              <Button onPress={() => handleSearch(textInput)} title='Buscar' />
             </View>
         </View>
     )
@@ -21,9 +21,9 @@ function Search({handleSearch,textInput,handleChangeText,title}) {
 const styles = StyleSheet.create({
     uppertext:{
         alignItems:"center",
-        fontSize:40,
+        fontSize:StyleConstants.titleFontSize,
         color: StyleConstants.mainColor,
-        marginVertical: 20,
+        marginVertical: 0,
         fontFamily:StyleConstants.mainFont
       },
     actions:{
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
       },
     inputContainer:{
         flexDirection: "row",
+        marginVertical:10,
       },
     input:{
         borderBottomColor:"black",
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
         marginRight:20,
         color: "black",
         backgroundColor: "white",
-        padding: 10,
+        padding: 5,
         borderRadius: 10
       }
     })

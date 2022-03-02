@@ -8,6 +8,7 @@ import CoursesListScreen from './Screens/CoursesListScreen';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import StyleConstants from './Constants/StyleConstants';
+import CoursesNavigator from './Navigation/CoursesNavigator'
 
 export default function App() {
   const [loaded]=useFonts({Boogaloo:require('./assets/Fonts/Boogaloo-Regular.ttf')})
@@ -51,6 +52,7 @@ export default function App() {
   const handleViewFavs= () => {
     setCurrentScreen("Fav-Courses")
     setItemList(FavCoursesList)
+    //setItemList(CoursesList.filter(function(item) {return item.isFav==true}))
   }
   const handleViewCourses= () => {
     setCurrentScreen("Courses")
@@ -70,7 +72,7 @@ export default function App() {
 
     {currentScreen==="Courses"? (
       <View style={{flex:1}}>
-        <CoursesListScreen handleAddFav={handleAddFav} itemList={itemList} handleSearch={handleSearch} titleStyle= {{fontFamily: "Boogaloo"}} textInput={textInput} handleChangeText={handleChangeText} />
+        <CoursesNavigator/>
       </View>
       ) : (null)
     }

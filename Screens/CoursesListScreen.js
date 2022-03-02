@@ -17,7 +17,7 @@ function CoursesListScreen({itemList,handleAddFav,handleSearch,textInput, handle
 
 const styles = StyleSheet.create({
     ListScreen:{
-        flex:1
+        flex:1,
     }
 })
 
