@@ -45,7 +45,7 @@ export default function App() {
   }
   const handleSearch= (searchText) =>{
     setTextInput('')
-    let filteredList = CoursesLis.filter(function(item) {return item.value.includes(searchText)})
+    let filteredList = CoursesList.filter(function(item) {return item.value.includes(searchText)})
     setItemList(filteredList)
     setModalVisible(false)
     setItemSelected({})
