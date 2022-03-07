@@ -2,14 +2,9 @@ import React from "react"
 import {StyleSheet, Text,TextInput,Button, View} from "react-native"
 import StyleConstants from "../../Constants/StyleConstants"
 
-function Search({handleSearch,textInput,handleChangeText,title}) {
+function Search({handleSearch,textInput,handleChangeText}) {
     return (
         <View>
-            <View style={styles.actions}>
-            <Text style={{...styles.uppertext}}>
-                {title}
-            </Text>
-            </View>
             <View style={styles.inputContainer}>
               <TextInput style={styles.input} value={textInput} placeholder='Ingresa tu búsqueda' placeholderTextColor={"silver"} onChangeText={handleChangeText}/>
               <Button onPress={() => handleSearch(textInput)} title='Buscar' />
@@ -19,20 +14,9 @@ function Search({handleSearch,textInput,handleChangeText,title}) {
 }
 
 const styles = StyleSheet.create({
-    uppertext:{
-        alignItems:"center",
-        fontSize:StyleConstants.titleFontSize,
-        color: StyleConstants.mainColor,
-        marginVertical: 0,
-        fontFamily:StyleConstants.mainFont
-      },
-    actions:{
-        flexDirection: "row",
-        justifyContent: "space-around",
-      },
     inputContainer:{
         flexDirection: "row",
-        marginVertical:10,
+        marginVertical:5,
       },
     input:{
         borderBottomColor:"black",

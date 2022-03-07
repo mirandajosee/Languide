@@ -1,7 +1,7 @@
 import React from "react"
 import {StyleSheet,Button,Text,View,Modal} from 'react-native';
 
-function ModalItem({handleConfirmDelete,modalVisible,itemSelected}) {
+function ModalItem({handleConfirmDelete,modalVisible,handleCloseModal,itemSelected}) {
     return(
     <Modal animationType='slide' visible={modalVisible} transparent={true} > 
         <View style={styles.modal}>
@@ -9,8 +9,13 @@ function ModalItem({handleConfirmDelete,modalVisible,itemSelected}) {
             <Text style={styles.textwhite}>¿Está seguro de que desea eliminar?</Text>
             <Text style={styles.textwhite}>{itemSelected.value}</Text>
           </View>
-          <View>
-            <Button onPress={handleConfirmDelete} title="Confirmar" />
+          <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+            <View style={{marginHorizontal:5}}>
+              <Button onPress={handleCloseModal} title="Cancelar" />
+            </View>
+            <View style={{marginHorizontal:5}}>
+              <Button onPress={handleConfirmDelete} title="Confirmar" />
+            </View>
           </View>
         </View>
     </Modal>

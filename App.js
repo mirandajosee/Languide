@@ -12,7 +12,7 @@ import CoursesNavigator from './Navigation/CoursesNavigator'
 
 export default function App() {
   const [loaded]=useFonts({Boogaloo:require('./assets/Fonts/Boogaloo-Regular.ttf')})
-  const [FavCoursesList,setFavCoursesList]= useState([])
+  const [loaded1]=useFonts({Rubik:require('./assets/Fonts/Rubik-VariableFont_wght.ttf')})
   const [textInput,setTextInput] = useState('');
   const [itemList,setItemList] = useState(CoursesList);
   const [itemSelected, setItemSelected]=useState({});
@@ -24,26 +24,28 @@ export default function App() {
     setItemSelected(item)
   }
   const handleAddFav = (item) => {
-    if (!FavCoursesList.includes(item)) {
-    setFavCoursesList([...FavCoursesList,item])}
+    item.isFav=true
   }
   const handleConfirmDelete= () =>{
+    itemSelected.isFav=false
     const {id} = itemSelected
-    setFavCoursesList(FavCoursesList.filter(item => item.id !== id))
     setItemList(itemList.filter(item => item.id !== id))
     setModalVisible(false)
     setItemSelected({})
   }
+  const handleCloseModal=() => {
+    setModalVisible(false)
+  }
   const handleSearchFav= (searchText) =>{
     setTextInput('')
-    let filteredList = FavCoursesList.filter(function(item) {return item.value.includes(searchText)})
+    let filteredList = (CoursesList.filter(function(item) {return item.isFav==true})).filter(function(item) {return item.value.includes(searchText)})
     setItemList(filteredList)
     setModalVisible(false)
     setItemSelected({})
   }
   const handleSearch= (searchText) =>{
     setTextInput('')
-    let filteredList = CoursesList.filter(function(item) {return item.value.includes(searchText)})
+    let filteredList = CoursesLis.filter(function(item) {return item.value.includes(searchText)})
     setItemList(filteredList)
     setModalVisible(false)
     setItemSelected({})
@@ -51,28 +53,28 @@ export default function App() {
 
   const handleViewFavs= () => {
     setCurrentScreen("Fav-Courses")
-    setItemList(FavCoursesList)
-    //setItemList(CoursesList.filter(function(item) {return item.isFav==true}))
+    //setItemList(FavCoursesList)
+    setItemList(CoursesList.filter(function(item) {return item.isFav==true}))
+    
   }
   const handleViewCourses= () => {
     setCurrentScreen("Courses")
     setItemList(CoursesList)
   }
 
-  if (!loaded) return <AppLoading />
+  if (!loaded && !loaded1) return <AppLoading />
   return ( 
     <View style={styles.container}>
       {currentScreen==="Fav-Courses"? (
       <View style={{flex:1}}>
-        <FavListScreen itemList={itemList} FavCoursesList={FavCoursesList} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav} titleStyle= {{fontFamily: "Boogaloo"}} textInput={textInput} handleChangeText={handleChangeText} />
-        <ModalItem handleConfirmDelete={handleConfirmDelete} modalVisible={modalVisible} itemSelected={itemSelected} />
+        <CoursesNavigator mainRoute={"Fav-Courses"} itemList={itemList} handleAddFav={handleAddFav} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} FavCoursesList={CoursesList.filter(function(item) {return item.isFav==true})} handleConfirmDelete={handleConfirmDelete} modalVisible={modalVisible} handleCloseModal={handleCloseModal} itemSelected={itemSelected} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav}/>
       </View>
       ) : (null)
       }
 
     {currentScreen==="Courses"? (
       <View style={{flex:1}}>
-        <CoursesNavigator/>
+        <CoursesNavigator mainRoute={"Courses"} itemList={itemList} handleAddFav={handleAddFav} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} FavCoursesList={CoursesList.filter(function(item) {return item.isFav==true})} handleConfirmDelete={handleConfirmDelete} modalVisible={modalVisible} handleCloseModal={handleCloseModal} itemSelected={itemSelected} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav}/>
       </View>
       ) : (null)
     }
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: StyleConstants.secondaryColor,
     flex:1,
-    padding: 30,
+    //padding: 30,
     paddingBottom:0
   },
   actions:{
