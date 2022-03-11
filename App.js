@@ -9,6 +9,7 @@ import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import StyleConstants from './Constants/StyleConstants';
 import CoursesNavigator from './Navigation/CoursesNavigator'
+import TabNavigator from './Navigation/TabNavigator';
 
 export default function App() {
   const [loaded]=useFonts({Boogaloo:require('./assets/Fonts/Boogaloo-Regular.ttf')})
@@ -25,6 +26,15 @@ export default function App() {
   }
   const handleAddFav = (item) => {
     item.isFav=true
+    console.log(item.isFav)
+  }
+  const handleRemoveFav = (item) => {
+    item.isFav=false
+    console.log(item.isFav)
+  }
+  const handleChangeFav = (item) => {
+    item.isFav=!item.isFav
+    console.log(item.isFav)
   }
   const handleConfirmDelete= () =>{
     itemSelected.isFav=false
@@ -32,6 +42,7 @@ export default function App() {
     setItemList(itemList.filter(item => item.id !== id))
     setModalVisible(false)
     setItemSelected({})
+    console.log(item.isFav)
   }
   const handleCloseModal=() => {
     setModalVisible(false)
@@ -53,9 +64,7 @@ export default function App() {
 
   const handleViewFavs= () => {
     setCurrentScreen("Fav-Courses")
-    //setItemList(FavCoursesList)
     setItemList(CoursesList.filter(function(item) {return item.isFav==true}))
-    
   }
   const handleViewCourses= () => {
     setCurrentScreen("Courses")
@@ -65,25 +74,7 @@ export default function App() {
   if (!loaded && !loaded1) return <AppLoading />
   return ( 
     <View style={styles.container}>
-      {currentScreen==="Fav-Courses"? (
-      <View style={{flex:1}}>
-        <CoursesNavigator mainRoute={"Fav-Courses"} itemList={itemList} handleAddFav={handleAddFav} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} FavCoursesList={CoursesList.filter(function(item) {return item.isFav==true})} handleConfirmDelete={handleConfirmDelete} modalVisible={modalVisible} handleCloseModal={handleCloseModal} itemSelected={itemSelected} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav}/>
-      </View>
-      ) : (null)
-      }
-
-    {currentScreen==="Courses"? (
-      <View style={{flex:1}}>
-        <CoursesNavigator mainRoute={"Courses"} itemList={itemList} handleAddFav={handleAddFav} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} FavCoursesList={CoursesList.filter(function(item) {return item.isFav==true})} handleConfirmDelete={handleConfirmDelete} modalVisible={modalVisible} handleCloseModal={handleCloseModal} itemSelected={itemSelected} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav}/>
-      </View>
-      ) : (null)
-    }
-
-    <View style={styles.actions}>
-      <Button onPress={handleViewFavs} title='favoritos' />
-      <Button onPress={handleViewCourses} title='cursos' />
-    </View>
-      <StatusBar style="auto" />
+      <TabNavigator itemList={itemList} handleChangeFav={handleChangeFav} handleAddFav={handleAddFav} handleConfirmDelete={handleRemoveFav} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} />
     </View>
   );
 }

@@ -1,10 +1,11 @@
 import React from "react"
 import {StyleSheet,Button,Text,View,FlatList,Image,TouchableOpacity} from 'react-native';
 import StyleConstants from "../Constants/StyleConstants";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Entypo } from '@expo/vector-icons';
+import {useState,useEffect} from "react";
 
-function MainList({itemList,handle,buttonTitle,navigation}) {
+let Fav=false
+function MainList({itemList,handle1,handle2,handle3,navigation}) {
     return(
         <FlatList data={itemList} renderItem={({item}) => (
             <TouchableOpacity onPress={() => {
@@ -16,7 +17,11 @@ function MainList({itemList,handle,buttonTitle,navigation}) {
                     <Image source={{uri:item.onlineImage}} style={StyleConstants.imageView2} />
                     <View style={styles.info}>
                         <Text style={{color: "white", fontSize:30,fontFamily:StyleConstants.mainFont}}>{item.value}</Text>
-                        <Button onPress={() => handle(item)} title={buttonTitle} />
+                        <TouchableOpacity onPress={()=>{
+                            handle3(item)
+                            }}>
+                            <Entypo name="heart" size={24} color={item.isFav? ("red"):("white")} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.info}>
                         <Text style={{color:"aliceblue"}}>

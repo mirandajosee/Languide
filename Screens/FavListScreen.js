@@ -8,7 +8,7 @@ import ModalItem from "../Components/Modal/Modal"
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-function FavListScreen({itemList,FavCoursesList,handleOnDelete,handleSearchFav,textInput, handleChangeText,navigation,handleConfirmDelete,modalVisible,handleCloseModal,itemSelected}) {
+function FavListScreen({itemList,FavCoursesList,handleOnDelete,handleAddFav,handleSearchFav,textInput, handleChangeText,navigation,handleConfirmDelete,modalVisible,handleCloseModal,itemSelected}) {
     return(
         <View style={{flex:1}}>
             <View style={styles.container}>
@@ -20,7 +20,7 @@ function FavListScreen({itemList,FavCoursesList,handleOnDelete,handleSearchFav,t
                 <Search handleSearch={handleSearchFav} textInput={textInput} handleChangeText={handleChangeText}/>
                 {(JSON.stringify(FavCoursesList))==JSON.stringify([])? (<NoFavsScreen/>)
                 :
-                (<MainList itemList={itemList} handle={handleOnDelete} buttonTitle={"x"} navigation={navigation} />)}
+                (<MainList itemList={itemList} handle1={handleAddFav} handle2={handleOnDelete} navigation={navigation} />)}
             </View>
             <ModalItem handleConfirmDelete={handleConfirmDelete} handleCloseModal={handleCloseModal} modalVisible={modalVisible} itemSelected={itemSelected}/>
         </View>
