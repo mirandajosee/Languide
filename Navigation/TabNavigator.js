@@ -10,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator()
 
-function TabNavigator({mainRoute,handleChangeFav,itemList,handleAddFav,handleSearch,textInput,itemSelected, handleChangeText,handleCloseModal,modalVisible,handleConfirmDelete,handleOnDelete,handleSearchFav}) {
+function TabNavigator({mainRoute,handleChangeFav,handleSearch,textInput,itemSelected, handleChangeText,handleCloseModal,modalVisible,handleConfirmDelete,handleOnDelete,handleSearchFav}) {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -23,7 +23,7 @@ function TabNavigator({mainRoute,handleChangeFav,itemList,handleAddFav,handleSea
       >
           <Tab.Screen
               name="CoursesTab"
-              children={() => <CoursesNavigator handleChangeFav={handleChangeFav} mainRoute={"Courses"} itemList={itemList} handleAddFav={handleAddFav} handleConfirmDelete={handleConfirmDelete} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} FavCoursesList={CoursesList.filter(function(item) {return item.isFav==true})} modalVisible={modalVisible} handleCloseModal={handleCloseModal} itemSelected={itemSelected} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav}/>}
+              children={() => <CoursesNavigator handleChangeFav={handleChangeFav} mainRoute={"Courses"} handleConfirmDelete={handleConfirmDelete} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} FavCoursesList={CoursesList.filter(function(item) {return item.isFav==true})} modalVisible={modalVisible} handleCloseModal={handleCloseModal} itemSelected={itemSelected} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav}/>}
               options={{
               tabBarStyle:{...styles.tabBar,...{position:"relative"}},
               tabBarLabel: "Cursos",

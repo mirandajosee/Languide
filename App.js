@@ -10,6 +10,8 @@ import { useFonts } from 'expo-font';
 import StyleConstants from './Constants/StyleConstants';
 import CoursesNavigator from './Navigation/CoursesNavigator'
 import TabNavigator from './Navigation/TabNavigator';
+import { Provider } from 'react-redux';
+import store from './store';
 
 export default function App() {
   const [loaded]=useFonts({Boogaloo:require('./assets/Fonts/Boogaloo-Regular.ttf')})
@@ -34,7 +36,6 @@ export default function App() {
   }
   const handleChangeFav = (item) => {
     item.isFav=!item.isFav
-    console.log(item.isFav)
   }
   const handleConfirmDelete= () =>{
     itemSelected.isFav=false
@@ -73,9 +74,11 @@ export default function App() {
 
   if (!loaded && !loaded1) return <AppLoading />
   return ( 
-    <View style={styles.container}>
-      <TabNavigator itemList={itemList} handleChangeFav={handleChangeFav} handleAddFav={handleAddFav} handleConfirmDelete={handleRemoveFav} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <TabNavigator handleSearchFav={handleSearchFav}  handleChangeFav={handleChangeFav} handleConfirmDelete={handleRemoveFav} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} />
+      </View>
+    </Provider>
   );
 }
 

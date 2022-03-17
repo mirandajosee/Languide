@@ -4,8 +4,13 @@ import StyleConstants from "../Constants/StyleConstants";
 import { Entypo } from '@expo/vector-icons';
 import {useState,useEffect} from "react";
 
-let Fav=false
-function MainList({itemList,handle1,handle2,handle3,navigation}) {
+
+function MainList({itemList,handle,navigation}) {
+    let initialValue={}
+    for (const item of itemList) {
+        initialValue={...initialValue,[item.id] : item.isFav? ("red"):("white")}
+    }
+    const [CoursesColor,setCoursesColor]=useState(initialValue)
     return(
         <FlatList data={itemList} renderItem={({item}) => (
             <TouchableOpacity onPress={() => {
@@ -18,9 +23,10 @@ function MainList({itemList,handle1,handle2,handle3,navigation}) {
                     <View style={styles.info}>
                         <Text style={{color: "white", fontSize:30,fontFamily:StyleConstants.mainFont}}>{item.value}</Text>
                         <TouchableOpacity onPress={()=>{
-                            handle3(item)
+                            handle(item)
+                            setCoursesColor({...CoursesColor,[item.id] : item.isFav? ("red"):("white")})
                             }}>
-                            <Entypo name="heart" size={24} color={item.isFav? ("red"):("white")} />
+                            <Entypo name="heart" size={24} color={CoursesColor[item.id]} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.info}>

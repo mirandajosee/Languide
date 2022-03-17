@@ -11,10 +11,10 @@ import StyleConstants from '../Constants/StyleConstants';
 
 const Stack = createNativeStackNavigator();
 
-function CoursesNavigator({mainRoute,handleChangeFav,itemList,handleAddFav,handleSearch,textInput,itemSelected, handleChangeText,handleCloseModal,modalVisible,handleConfirmDelete,handleOnDelete,handleSearchFav}) {
+function CoursesNavigator({mainRoute,handleChangeFav,handleSearch,textInput,itemSelected, handleChangeText,handleCloseModal,modalVisible,handleConfirmDelete,handleOnDelete,handleSearchFav}) {
   return (
       <Stack.Navigator
-        initialRouteName={mainRoute}
+        initialRouteName={"Courses"}
         screenOptions={{
           headerStyle: styles.header,
           headerTitleStyle: styles.headerTitle,
@@ -34,7 +34,7 @@ function CoursesNavigator({mainRoute,handleChangeFav,itemList,handleAddFav,handl
             title: "CURSOS",
           })}
         >
-          {(props) => <CoursesListScreen {...props} handleChangeFav={handleChangeFav} itemList={itemList} handleAddFav={handleAddFav} handleConfirmDelete={handleConfirmDelete} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} />}
+          {(props) => <CoursesListScreen {...props} handleChangeFav={handleChangeFav} handleConfirmDelete={handleConfirmDelete} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} />}
         </Stack.Screen>
         <Stack.Screen
           name="Fav-Courses"
@@ -43,7 +43,7 @@ function CoursesNavigator({mainRoute,handleChangeFav,itemList,handleAddFav,handl
             headerShown:false
           })}
         >
-          {(props) => <FavListScreen {...props} itemList={itemList} FavCoursesList={CoursesList.filter(function(item) {return item.isFav==true})} handleConfirmDelete={handleConfirmDelete} modalVisible={modalVisible} handleCloseModal={handleCloseModal} itemSelected={itemSelected} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav} textInput={textInput} handleChangeText={handleChangeText} />}
+          {(props) => <FavListScreen {...props}  handleConfirmDelete={handleChangeFav} modalVisible={modalVisible} handleCloseModal={handleCloseModal} itemSelected={itemSelected} handleSearchFav={handleSearchFav} textInput={textInput} handleChangeText={handleChangeText} />}
         </Stack.Screen>
       </Stack.Navigator>
   );
