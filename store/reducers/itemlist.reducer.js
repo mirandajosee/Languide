@@ -1,6 +1,6 @@
 import CoursesList from "../../Components/Search/Courses";
 import { FILTERS } from "../../data/filters";
-import { FILTER_ITEMLIST, selectFilter } from "../actions/itemlist.action";
+import { FILTER_ITEMLIST, SEARCH_ACTION } from "../actions/itemlist.action";
 
 const INITIAL_STATE = {
   list: CoursesList,
@@ -25,6 +25,14 @@ const ItemListReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 SelectedFilter: state.filters[index].title,
                 list:newList
+            }
+        
+        case SEARCH_ACTION:
+            if (action.textInput=="") {return state}
+            const localList = state.list
+            return {
+                ...state,
+                list:localList.filter(function(item) {return item.value.toUpperCase().includes(action.textInput.toUpperCase())})
             }
         default: 
             return state;}
