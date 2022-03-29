@@ -31,7 +31,7 @@ function CoursesNavigator({mainRoute,handleChangeFav,handleSearch,textInput,item
         <Stack.Screen
           name="Courses"
           options={({ route }) => ({
-            title: "CURSOS",
+            title: "Cursos",
           })}
         >
           {(props) => <CoursesListScreen {...props} handleChangeFav={handleChangeFav} handleConfirmDelete={handleConfirmDelete} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} />}

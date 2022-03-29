@@ -9,18 +9,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useSelector,useDispatch } from 'react-redux';
 import { selectFilter } from '../store/actions/itemlist.action';
 import { FILTERS } from '../data/filters';
+import MultiSelect from 'react-native-multiple-select';
 
 function CoursesListScreen({handleChangeFav,handleSearch,textInput, handleChangeText,navigation}) {
     const dispatch = useDispatch()
     let itemList=useSelector((state)=> state.itemlist.list)
     return(
         <View style={styles.container}>
-            <View style={{flexDirection:"row", alignItems:"center",justifyContent:"space-around"}} >
-                <Button title={"Cursos"} onPress={()=>{dispatch(selectFilter(""))}}/>
-                <Button title={"Favoritos"} onPress={()=>{dispatch(selectFilter("Fav"))}}/>
-                <Button title={"Japonés"} onPress={()=>{dispatch(selectFilter(FILTERS[2].id))}}/>
-                <Button title={"Inglés"} onPress={()=>{dispatch(selectFilter(FILTERS[3].id))}}/>
-            </View>
+            <MultiSelect items={FILTERS} single={true} uniqueKey="id" displayKey='title' onSelectedItemsChange={(selectedItem)=>{dispatch(selectFilter(selectedItem[0]))}} selectText="Elige un filtro" styleTextDropdown={{marginHorizontal:10}} styleDropdownMenu={{borderRadius:10, borderBottomColor:"black",borderBottomWidth:1}} styleDropdownMenuSubsection={{borderRadius:10}} />
             <Search handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText}/>
         
             <MainList itemList={itemList} handle={handleChangeFav} navigation={navigation} />

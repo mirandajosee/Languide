@@ -1,16 +1,17 @@
 import React from "react"
-import {StyleSheet,Button,Text,View,FlatList,Image,TouchableOpacity} from 'react-native';
+import {StyleSheet,Text,View,FlatList,Image,TouchableOpacity} from 'react-native';
 import StyleConstants from "../Constants/StyleConstants";
 import { Entypo } from '@expo/vector-icons';
 import {useState,useEffect} from "react";
+import { addItem } from "../store/actions/cart.actions";
+import CoursesList from "./Search/Courses";
+import { useSelector,useDispatch } from "react-redux";
+import { changeFav } from "../store/actions/favcolors.action";
 
 
 function MainList({itemList,handle,navigation}) {
-    let initialValue={}
-    for (const item of itemList) {
-        initialValue={...initialValue,[item.id] : item.isFav? ("red"):("white")}
-    }
-    const [CoursesColor,setCoursesColor]=useState(initialValue)
+    const dispatch=useDispatch()
+    const CoursesColor=useSelector((state) => state.favcolor.Dictionary)
     return(
         <FlatList data={itemList} renderItem={({item}) => (
             <TouchableOpacity onPress={() => {
@@ -22,12 +23,17 @@ function MainList({itemList,handle,navigation}) {
                     <Image source={{uri:item.onlineImage}} style={StyleConstants.imageView2} />
                     <View style={styles.info}>
                         <Text style={{color: "white", fontSize:30,fontFamily:StyleConstants.mainFont}}>{item.value}</Text>
-                        <TouchableOpacity onPress={()=>{
-                            handle(item)
-                            setCoursesColor({...CoursesColor,[item.id] : item.isFav? ("red"):("white")})
-                            }}>
-                            <Entypo name="heart" size={24} color={CoursesColor[item.id]} />
-                        </TouchableOpacity>
+                        <View style={{alignItems:"flex-end", flexDirection:"row-reverse"}}>
+                            <TouchableOpacity onPress={()=>{
+                                handle(item)
+                                dispatch(changeFav(item))
+                                }}>
+                                <Entypo name="heart" size={24} color={CoursesColor[item.id]} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>dispatch(addItem(CoursesList.find(k => k.id === item.id)))}>
+                                <Entypo name="shopping-cart" size={24} color="silver" />
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <View style={styles.info}>
                         <Text style={{color:"aliceblue"}}>

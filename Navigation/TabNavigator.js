@@ -6,13 +6,13 @@ import CoursesNavigator from './CoursesNavigator';
 import CartNavigator from './CartNavigator';
 import CoursesList from '../Components/Search/Courses';
 import { NavigationContainer } from '@react-navigation/native';
+import OrdersScreen from '../Screens/OrdersScreen';
 
 
 const Tab = createBottomTabNavigator()
 
 function TabNavigator({mainRoute,handleChangeFav,handleSearch,textInput,itemSelected, handleChangeText,handleCloseModal,modalVisible,handleConfirmDelete,handleOnDelete,handleSearchFav}) {
   return (
-    <NavigationContainer>
       <Tab.Navigator
         initialRouteName="CoursesTab"
         screenOptions={{
@@ -55,8 +55,23 @@ function TabNavigator({mainRoute,handleChangeFav,handleSearch,textInput,itemSele
             )
           }}
         />
+        <Tab.Screen
+          name="OrdersTab"
+          component={OrdersScreen}
+          options={{
+            tabBarLabel: "Tus Pagos",
+            tabBarIcon: ({ focused }) => (
+              <View style={styles.item}>
+                <Entypo
+                  name="list"
+                  size={24}
+                  color={focused ? 'white' : 'silver'}
+                />
+              </View>
+            )
+          }}
+        />
       </Tab.Navigator>
-    </NavigationContainer>
   )
 }
 

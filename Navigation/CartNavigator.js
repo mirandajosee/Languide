@@ -15,7 +15,7 @@ const CartNavigator = () => {
       headerTintColor: Platform.OS === 'ios' ? StyleConstants.mainColor : 'white'
     }}
     > 
-      <Stack.Screen name="Cart" component={CartScreen} />
+      <Stack.Screen name="Tu carrito" component={CartScreen} />
     </Stack.Navigator>
   )
 }

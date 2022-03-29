@@ -12,6 +12,10 @@ import CoursesNavigator from './Navigation/CoursesNavigator'
 import TabNavigator from './Navigation/TabNavigator';
 import { Provider } from 'react-redux';
 import store from './store';
+import { useSelector } from 'react-redux';
+import AuthNavigator from './Navigation/AuthNavigator';
+import MainNavigator from './Navigation/NavIndex';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   const [loaded]=useFonts({Boogaloo:require('./assets/Fonts/Boogaloo-Regular.ttf')})
@@ -75,9 +79,11 @@ export default function App() {
   if (!loaded && !loaded1) return <AppLoading />
   return ( 
     <Provider store={store}>
-      <View style={styles.container}>
-        <TabNavigator handleSearchFav={handleSearchFav}  handleChangeFav={handleChangeFav} handleConfirmDelete={handleRemoveFav} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} />
-      </View>
+      <NavigationContainer>
+        <View style={styles.container}>
+          <MainNavigator handleRemoveFav={handleRemoveFav} handleSearchFav={handleSearchFav}  handleChangeFav={handleChangeFav} handleConfirmDelete={handleRemoveFav} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText}/>
+        </View>
+      </NavigationContainer>
     </Provider>
   );
 }
