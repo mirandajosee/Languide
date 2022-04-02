@@ -6,6 +6,7 @@ import StyleConstants from '../Constants/StyleConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem,confirmCart } from '../store/actions/cart.actions';
 import { BuyCourse } from '../store/actions/bayedcourses.action';
+import { getOrders } from '../store/actions/order.action';
 
 const CartScreen = () => {
   const dispatch = useDispatch()
@@ -14,8 +15,9 @@ const CartScreen = () => {
   const status = useSelector(state => state.cart.status)
   const userId = useSelector(state => state.auth.userId);
   const handlerDeleteItem = (id) => dispatch(removeItem(id));
-  const handlerConfirmCart = () => {dispatch(confirmCart(items,total,userId)); dispatch(BuyCourse(items))}
-
+  const handlerConfirmCart = () => {dispatch(confirmCart(items,total,userId))
+     dispatch(BuyCourse(items))
+     dispatch(getOrders())}
   const renderItem = (data) => (
     <CartItem item={data.item} onDelete={handlerDeleteItem} />
   );

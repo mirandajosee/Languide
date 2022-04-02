@@ -19,7 +19,7 @@ function CoursesDetailScreen() {
   const course = CoursesList.find(item => item.id === route.params.courseID)
   const handlerAddItemCart = () => dispatch(addItem(course))
   const courseLocation = course.coordinates
-  const [deltaDistance,setDeltaDistance] = useState([0.0922,0.0421])
+  const [deltaDistance,setDeltaDistance] = useState([])
   const [locationAllowed,setLocationAllowed]= useState(false)
   const CourseColor=useSelector((state) => state.favcolor.Dictionary)
   const handleFav = (item) => {
@@ -50,18 +50,18 @@ function CoursesDetailScreen() {
     setLocationAllowed(isLocationOk)
     if (!isLocationOk) return;
 
-    const location = await Location.getCurrentPositionAsync({
+    const location = await Location.getLastKnownPositionAsync({
       timeout: 5000
     })
-
     setPickedLocation({
       lat: location.coords.latitude,
       lng: location.coords.longitude,
     })
     setDeltaDistance([Math.abs(pickedLocation.lat-courseLocation[0]),Math.abs(pickedLocation.lng-courseLocation[1])])
     ;}
-  useEffect(()=>verifyPermissions,[])
-  useEffect(()=>handleGetLocation(),[])
+    if (deltaDistance==undefined || (JSON.stringify(deltaDistance))==JSON.stringify([])){
+      handleGetLocation()
+    }
 
   return (
     <ScrollView >
@@ -87,7 +87,7 @@ function CoursesDetailScreen() {
           {locationAllowed?
           <View style={{flex:1}}> 
             <MapView
-            initialRegion={{latitude:courseLocation[0],longitude:courseLocation[1],latitudeDelta:deltaDistance[0],longitudeDelta:deltaDistance[1]}}
+            initialRegion={{latitude:courseLocation[0],longitude:courseLocation[1],latitudeDelta:JSON.stringify(deltaDistance)!=JSON.stringify([])?(deltaDistance[0]):(0.0922),longitudeDelta:JSON.stringify(deltaDistance)!=JSON.stringify([])?(deltaDistance[1]):(0.0421)}}
             style={{flex:1,width: 300,height: 300}}
             onPress={handleGetLocation}
             showsUserLocation={true}
@@ -100,7 +100,13 @@ function CoursesDetailScreen() {
               }} />
             }
             </MapView>
-            <Text>Tu distance al Instituto es {(((deltaDistance[0]**2+deltaDistance[1])**(0.5))*(6378/180)).toFixed(2)}km</Text>
+            {JSON.stringify(deltaDistance)!=JSON.stringify([])?
+            <Text style={{...styles.description,color:"white",backgroundColor:StyleConstants.mainColor,padding:5,borderRadius:10}}>
+              Tu distancia al Instituto es aproximadamente {(((deltaDistance[0]**2+deltaDistance[1]**2)**(0.5))*(6378.137*Math.PI/180)).toFixed(2)}km
+            </Text>:
+            <Text style={{...styles.description,color:"white",backgroundColor:StyleConstants.mainColor,padding:5,borderRadius:10}}>
+            Cargando distancia...
+            </Text>}
           </View>
           :
           <View style={{flex:1}}> 
@@ -167,7 +173,7 @@ const styles = StyleSheet.create({
   },
   description:{
     color:"black",
-    fontSize:15,
+    fontSize:20,
     fontFamily:StyleConstants.secondaryFont,
     marginVertical:20
   }

@@ -1,7 +1,7 @@
 import { GET_ORDERS } from '../actions/order.action';
 
 const INITIAL_STATE = {
-  list: {},
+  list: [],
 };
 
 const OrderReducer = (state = INITIAL_STATE, action) => {

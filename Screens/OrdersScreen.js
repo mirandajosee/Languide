@@ -9,13 +9,14 @@ import { BuyCourse } from '../store/actions/bayedcourses.action';
 const OrdersScreen = () => {
   const userId = useSelector(state => state.auth.userId);
   const [Data,setData]=useState([])
-  const realData=useReducer(state => state.buy.Data)
+  const realData=useReducer(state => state.buy)
+  console.log(realData)
+  console.log("realData")
   const handlerDeleteItem = () => {} 
   const dispatch = useDispatch();
   const list = useSelector(state => state.orders.list);
   let OrderCourses=[]
   if (list.filter(function(item) {return item.userId==userId})[0]!=undefined && JSON.stringify(Data)==JSON.stringify([])) {
-    console.log(list[0])
     for (const orders of list.filter(function(item) {return item.userId==userId})){
     OrderCourses.push(...(orders["items"]))
     }
@@ -24,11 +25,12 @@ const OrdersScreen = () => {
     OrderCourses=[]
   }
   
+  //console.log("Vs")
+  console.log(realData)
   const renderItem = (data) => (
     <CartItem item={data.item} onDelete={handlerDeleteItem} />);
-
-  useEffect(()=>{dispatch(getOrders())},[])
-
+  useEffect(()=>dispatch(getOrders()),[])
+  
   return (
     <View style={styles.container}>
       <Text style={styles.uppertext}>Tus pagos:</Text>

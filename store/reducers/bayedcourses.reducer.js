@@ -7,7 +7,13 @@ const INITIAL_STATE = {
 const BayedCoursesReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
         case BUY_COURSE:
-            return {...state,Data:action.Data}
+            let newData=[]
+            if (JSON.stringify(state.Data)==JSON.stringify([])) {newData=action.Data}
+            if (state.Data==undefined) {newData=action.Data}
+            else {newData=[...state.Data,...action.Data]}
+            console.log("New Data is")
+            console.log(newData)
+            return {...state,Data:newData}
         default:
             return state
     }

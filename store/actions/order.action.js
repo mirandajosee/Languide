@@ -1,6 +1,7 @@
 import { API_URL } from "../../Constants/Database";
 
 export const GET_ORDERS = 'GET_ORDERS';
+export const ADQUIRE_COURSE = 'ADQUIRE_COURSE';
 
 export const getOrders = () => {
   return async dispatch => {
@@ -21,7 +22,7 @@ export const getOrders = () => {
       }))
       dispatch({
         type: GET_ORDERS,
-        payload: orders,
+        payload: [...orders],
         status: 'success',
       })
     } catch (error) {
@@ -34,3 +35,5 @@ export const getOrders = () => {
     }
   }
 }
+
+export const adquireCourse=(newCourses)=>({type:ADQUIRE_COURSE})

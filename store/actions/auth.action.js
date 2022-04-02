@@ -1,6 +1,9 @@
 import { SIGNUP_API_URL,SIGNIN_API_URL } from "../../Constants/Database";
 export const SIGN_UP = "SIGN_UP";
 export const SIGN_IN = "SIGN_IN";
+export const GET_USER = "GET_USER";
+import { loadUser } from "../../data/localdatabase";
+import { insertUser } from "../../data/localdatabase";
 
 export const signUp = (email, password) => {
   return async dispatch => {
@@ -17,6 +20,10 @@ export const signUp = (email, password) => {
       })
     });
     const data = await response.json();
+    const result = await insertUser(
+      data.idToken,
+      data.localId
+  )
     dispatch({
       type: SIGN_UP,
       token: data.idToken,
@@ -41,6 +48,10 @@ export const signIn = (email,password) =>{
             })
           });
         const data = await response.json();
+        const result = await insertUser(
+        data.idToken,
+        data.localId
+        )
         dispatch({
             type: SIGN_IN,
             token: data.idToken,
@@ -48,4 +59,18 @@ export const signIn = (email,password) =>{
           })
 
     }
+}
+
+export const getUser = () => {
+  return async dispatch => {
+      try {
+          const result = await loadUser()
+          dispatch({
+              type: GET_USER,
+              userData: result.rows._array,
+          })
+      } catch(error) {
+          throw error
+      }
+  }
 }

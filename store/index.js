@@ -15,7 +15,7 @@ const RootReducer = combineReducers({
   favcolor: FavColorReducer,
   orders:OrderReducer,
   auth:AuthReducer,
-  buy:BayedCoursesReducer
+  buy:BayedCoursesReducer,
 })
 
 export default createStore(RootReducer,applyMiddleware(thunk));

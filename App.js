@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import AuthNavigator from './Navigation/AuthNavigator';
 import MainNavigator from './Navigation/NavIndex';
 import { NavigationContainer } from '@react-navigation/native';
+import {init} from "./data/localdatabase"
 
 export default function App() {
   const [loaded]=useFonts({Boogaloo:require('./assets/Fonts/Boogaloo-Regular.ttf')})
@@ -75,6 +76,14 @@ export default function App() {
     setCurrentScreen("Courses")
     setItemList(CoursesList)
   }
+
+
+  init()
+  .then(() => { console.log('Database initialized') })
+  .catch((err) => {
+    console.log('Database failed to connect')
+    console.log(err.message)
+  })
 
   if (!loaded && !loaded1) return <AppLoading />
   return ( 
