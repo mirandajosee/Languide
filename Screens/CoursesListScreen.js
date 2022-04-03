@@ -12,14 +12,17 @@ import { FILTERS } from '../data/filters';
 import MultiSelect from 'react-native-multiple-select';
 import BackgroundImage from '../Components/BackgroundImage';
 
-function CoursesListScreen({handleChangeFav,handleSearch,textInput, handleChangeText,navigation}) {
+function CoursesListScreen({navigation}) {
     const dispatch = useDispatch()
     let itemList=useSelector((state)=> state.itemlist.list)
+    const handleChangeFav = (item) => {
+        item.isFav=!item.isFav
+      }
     return(
     <BackgroundImage imageSource={require('../assets/oldmap.jpg')} opacity={0.5}>
         
             <MultiSelect items={FILTERS} single={true} uniqueKey="id" displayKey='title' onSelectedItemsChange={(selectedItem)=>{dispatch(selectFilter(selectedItem[0]))}} selectText="Elige un filtro" styleTextDropdown={{marginHorizontal:10}} styleDropdownMenu={{borderRadius:10, borderBottomColor:"black",borderBottomWidth:1}} styleDropdownMenuSubsection={{borderRadius:10}} />
-            <Search handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText}/>
+            <Search/>
         
             <MainList itemList={itemList} handle={handleChangeFav} navigation={navigation} />
     </BackgroundImage>

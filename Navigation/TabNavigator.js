@@ -1,17 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Entypo } from '@expo/vector-icons'; 
 import CoursesNavigator from './CoursesNavigator';
 import CartNavigator from './CartNavigator';
-import CoursesList from '../Components/Search/Courses';
-import { NavigationContainer } from '@react-navigation/native';
 import OrdersScreen from '../Screens/OrdersScreen';
 
 
 const Tab = createBottomTabNavigator()
 
-function TabNavigator({mainRoute,handleChangeFav,handleSearch,textInput,itemSelected, handleChangeText,handleCloseModal,modalVisible,handleConfirmDelete,handleOnDelete,handleSearchFav}) {
+function TabNavigator() {
   return (
       <Tab.Navigator
         initialRouteName="CoursesTab"
@@ -23,7 +21,7 @@ function TabNavigator({mainRoute,handleChangeFav,handleSearch,textInput,itemSele
       >
           <Tab.Screen
               name="CoursesTab"
-              children={() => <CoursesNavigator handleChangeFav={handleChangeFav} mainRoute={"Courses"} handleConfirmDelete={handleConfirmDelete} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText} FavCoursesList={CoursesList.filter(function(item) {return item.isFav==true})} modalVisible={modalVisible} handleCloseModal={handleCloseModal} itemSelected={itemSelected} handleOnDelete={handleOnDelete} handleSearchFav={handleSearchFav}/>}
+              children={() => <CoursesNavigator />}
               options={{
               tabBarStyle:{...styles.tabBar,...{position:"relative"}},
               tabBarLabel: "Cursos",

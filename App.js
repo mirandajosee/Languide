@@ -14,21 +14,12 @@ import {init} from "./data/localdatabase"
 export default function App() {
   const [loaded]=useFonts({Boogaloo:require('./assets/Fonts/Boogaloo-Regular.ttf')})
   const [loaded1]=useFonts({Rubik:require('./assets/Fonts/Rubik-VariableFont_wght.ttf')})
-  const [textInput,setTextInput] = useState('');
   const [itemList,setItemList] = useState(CoursesList);
   const [itemSelected, setItemSelected]=useState({});
   const [modalVisible, setModalVisible] = useState(false)
-  const handleChangeText = (text) => {setTextInput(text)}
   const handleOnDelete = (item) => {
     setModalVisible(true)
     setItemSelected(item)
-  }
-  const handleRemoveFav = (item) => {
-    item.isFav=false
-    console.log(item.isFav)
-  }
-  const handleChangeFav = (item) => {
-    item.isFav=!item.isFav
   }
   const handleConfirmDelete= () =>{
     itemSelected.isFav=false
@@ -40,20 +31,6 @@ export default function App() {
   }
   const handleCloseModal=() => {
     setModalVisible(false)
-  }
-  const handleSearchFav= (searchText) =>{
-    setTextInput('')
-    let filteredList = (CoursesList.filter(function(item) {return item.isFav==true})).filter(function(item) {return item.value.includes(searchText)})
-    setItemList(filteredList)
-    setModalVisible(false)
-    setItemSelected({})
-  }
-  const handleSearch= (searchText) =>{
-    setTextInput('')
-    let filteredList = CoursesList.filter(function(item) {return item.value.includes(searchText)})
-    setItemList(filteredList)
-    setModalVisible(false)
-    setItemSelected({})
   }
 
 
@@ -69,7 +46,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <View style={styles.container}>
-          <MainNavigator handleRemoveFav={handleRemoveFav} handleSearchFav={handleSearchFav}  handleChangeFav={handleChangeFav} handleConfirmDelete={handleRemoveFav} handleSearch={handleSearch} textInput={textInput} handleChangeText={handleChangeText}/>
+          <MainNavigator />
         </View>
       </NavigationContainer>
     </Provider>
