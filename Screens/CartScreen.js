@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity,ActivityIndicator, StyleSheet } from 'react-native';
 import CartItem from '../Components/CartItem';
-import { CART } from '../data/cart';
 import StyleConstants from '../Constants/StyleConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem,confirmCart } from '../store/actions/cart.actions';
@@ -15,9 +14,12 @@ const CartScreen = () => {
   const status = useSelector(state => state.cart.status)
   const userId = useSelector(state => state.auth.userId);
   const handlerDeleteItem = (id) => dispatch(removeItem(id));
-  const handlerConfirmCart = () => {dispatch(confirmCart(items,total,userId))
+  const handlerConfirmCart = () => {
+    //Evita enviar pedidos vacíos
+     if (JSON.stringify(items)!=JSON.stringify([])){
+     dispatch(confirmCart(items,total,userId))
      dispatch(BuyCourse(items))
-     dispatch(getOrders())}
+     dispatch(getOrders())}}
   const renderItem = (data) => (
     <CartItem item={data.item} onDelete={handlerDeleteItem} />
   );

@@ -13,7 +13,7 @@ function Search() {
         <View>
             <View style={styles.inputContainer}>
               <TextInput style={styles.input} value={textInput} placeholder='Ingresa tu búsqueda' placeholderTextColor={"silver"} onChangeText={handleChangeText}/>
-              <Button onPress={() => {dispatch(SearchAction(textInput)); setTextInput("")}} title='Buscar' />
+              <Button onPress={() => {dispatch(SearchAction(textInput)); setTextInput("")}} title='Buscar' color={StyleConstants.mainColor}/>
             </View>
         </View>
     )

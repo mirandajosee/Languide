@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { View, Text, TextInput, TouchableOpacity, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Button, StyleSheet,Image } from 'react-native';
 import StyleConstants from '../Constants/StyleConstants';
 import { signUp,signIn } from '../store/actions/auth.action';
 import FormInput from '../Components/FormInput';
@@ -30,15 +30,17 @@ function AuthScreen() {
 
   return (
     <View style={styles.screen}>
+      <Image source={require('../assets/applogo.png')} style={styles.image}/>
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
         <FormInput
-          label="Email"
+          label="E-mail"
           id = 'email'
           onInputChange={handleInputChange}
           keyboardType="email-address"
           autoCapitalize="none"
           required
+          placeholder='Ingresa tu correo electrónico'
         />
         <FormInput
           label="Clave"
@@ -46,6 +48,7 @@ function AuthScreen() {
           onInputChange={handleInputChange}
           secureTextEntry
           required
+          placeholder='Ingresa tu contraseña'
         />
         <Button
           title="REGISTRARSE"
@@ -68,18 +71,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:StyleConstants.terciaryColor
+  },
+  image: {
+    width:190,
+    height:120
   },
   title: {
-    fontSize: 24,
+    fontSize: StyleConstants.titleFontSize,
     marginBottom: 18,
     textAlign: 'center',
+    fontFamily:StyleConstants.mainFont
   },
   container: {
     width: '80%',
     maxWidth: 400,
     padding: 12,
     margin: 12,
-    borderColor: '#ccc',
+    borderColor: StyleConstants.mainColor,
     borderWidth: 1,
     borderRadius: 10,
     backgroundColor: 'white',

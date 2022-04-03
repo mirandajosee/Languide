@@ -19,7 +19,6 @@ const ItemListReducer = (state = INITIAL_STATE, action) => {
                     return {...state,list: CoursesList.filter(function(item) {return item.isFav==true}),SelectedFilter: "Cursos"}
                 default: break
             }
-            if (action.filterID==""){return {...state,list: CoursesList,SelectedFilter: "Cursos"}}
             const newList = CoursesList.filter(function(item) {return item.language==state.filters[index].title})
             return {
                 ...state,
@@ -32,7 +31,7 @@ const ItemListReducer = (state = INITIAL_STATE, action) => {
             const localList = state.list
             return {
                 ...state,
-                list:localList.filter(function(item) {return item.value.toUpperCase().includes(action.textInput.toUpperCase())})
+                list:localList.filter(function(item) {return item.value.toUpperCase().trim().includes(action.textInput.toUpperCase().trim())})
             }
         default: 
             return state;}

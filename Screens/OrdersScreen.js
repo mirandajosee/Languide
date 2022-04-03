@@ -8,28 +8,21 @@ import { BuyCourse } from '../store/actions/bayedcourses.action';
 
 const OrdersScreen = () => {
   const userId = useSelector(state => state.auth.userId);
-  const [Data,setData]=useState([])
-  const realData=useReducer(state => state.buy)
-  console.log(realData)
-  console.log("realData")
+  const realData=useSelector(state => state.buy.Data)
   const handlerDeleteItem = () => {} 
   const dispatch = useDispatch();
   const list = useSelector(state => state.orders.list);
   let OrderCourses=[]
-  if (list.filter(function(item) {return item.userId==userId})[0]!=undefined && JSON.stringify(Data)==JSON.stringify([])) {
+  if (list.filter(function(item) {return item.userId==userId})[0]!=undefined && JSON.stringify(realData)==JSON.stringify([])) {
     for (const orders of list.filter(function(item) {return item.userId==userId})){
     OrderCourses.push(...(orders["items"]))
     }
-    setData(OrderCourses)
     dispatch(BuyCourse(OrderCourses))
     OrderCourses=[]
   }
-  
-  //console.log("Vs")
-  console.log(realData)
   const renderItem = (data) => (
     <CartItem item={data.item} onDelete={handlerDeleteItem} />);
-  useEffect(()=>dispatch(getOrders()),[])
+  useEffect(()=>{dispatch(getOrders());},[])
   
   return (
     <View style={styles.container}>
@@ -37,7 +30,7 @@ const OrdersScreen = () => {
       
       <View style={{flex:1}}>
         <FlatList
-            data={Data}
+            data={realData}
             keyExtractor={item => item.id}
             renderItem={renderItem}
             />
