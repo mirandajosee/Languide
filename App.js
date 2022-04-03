@@ -1,19 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text,Button, View} from 'react-native';
+import { StyleSheet, View} from 'react-native';
 import { useState } from 'react';
 import CoursesList from './Components/Search/Courses';
-import ModalItem from './Components/Modal/Modal';
-import FavListScreen from './Screens/FavListScreen';
-import CoursesListScreen from './Screens/CoursesListScreen';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import StyleConstants from './Constants/StyleConstants';
-import CoursesNavigator from './Navigation/CoursesNavigator'
-import TabNavigator from './Navigation/TabNavigator';
 import { Provider } from 'react-redux';
 import store from './store';
-import { useSelector } from 'react-redux';
-import AuthNavigator from './Navigation/AuthNavigator';
 import MainNavigator from './Navigation/NavIndex';
 import { NavigationContainer } from '@react-navigation/native';
 import {init} from "./data/localdatabase"
@@ -25,15 +18,10 @@ export default function App() {
   const [itemList,setItemList] = useState(CoursesList);
   const [itemSelected, setItemSelected]=useState({});
   const [modalVisible, setModalVisible] = useState(false)
-  const [currentScreen,setCurrentScreen]=useState("Courses")
   const handleChangeText = (text) => {setTextInput(text)}
   const handleOnDelete = (item) => {
     setModalVisible(true)
     setItemSelected(item)
-  }
-  const handleAddFav = (item) => {
-    item.isFav=true
-    console.log(item.isFav)
   }
   const handleRemoveFav = (item) => {
     item.isFav=false
@@ -66,15 +54,6 @@ export default function App() {
     setItemList(filteredList)
     setModalVisible(false)
     setItemSelected({})
-  }
-
-  const handleViewFavs= () => {
-    setCurrentScreen("Fav-Courses")
-    setItemList(CoursesList.filter(function(item) {return item.isFav==true}))
-  }
-  const handleViewCourses= () => {
-    setCurrentScreen("Courses")
-    setItemList(CoursesList)
   }
 
 

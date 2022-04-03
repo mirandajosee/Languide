@@ -83,7 +83,7 @@ function CoursesDetailScreen() {
         <View style={styles.info}>
           <Text style={styles.title}>{course.value}</Text>
           <Text style={styles.description}>{course.description}</Text>
-          <Text style={styles.price}>${course.price}</Text>
+          <Text style={styles.price}>Precio por mes: ${course.price}</Text>
           {locationAllowed?
           <View style={{flex:1}}> 
             <MapView
@@ -169,7 +169,8 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderColor:"black",
     backgroundColor:StyleConstants.terciaryColor,
-    padding:10
+    padding:10,
+    textAlign:"center"
   },
   description:{
     color:"black",

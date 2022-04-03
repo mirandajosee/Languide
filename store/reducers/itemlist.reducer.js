@@ -28,8 +28,9 @@ const ItemListReducer = (state = INITIAL_STATE, action) => {
             }
         
         case SEARCH_ACTION:
-            if (action.textInput=="") {return state}
+            if (action.textInput=="" ||action.textInput==undefined ) {return state}
             const localList = state.list
+            console.log(action.textInput)
             return {
                 ...state,
                 list:localList.filter(function(item) {return item.value.toUpperCase().includes(action.textInput.toUpperCase())})
