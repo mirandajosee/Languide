@@ -1,7 +1,6 @@
 import { SIGN_UP } from '../actions/auth.action';
 import { SIGN_IN } from '../actions/auth.action';
 import { GET_USER } from '../actions/auth.action';
-
 const INITIAL_STATE = {
   token: null,
   userId: null,
@@ -22,6 +21,9 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
             userId: action.userId,
         }
     case GET_USER:
+      if (JSON.stringify(action.userData)==JSON.stringify([])) {
+        return state
+      }
       return {
         ...state,
         token:action.userData[0].token,

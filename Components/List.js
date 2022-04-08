@@ -10,35 +10,51 @@ import { changeFav } from "../store/actions/favcolors.action";
 
 
 function MainList({itemList,handle,navigation}) {
+    //This fuction will randomize the order of the courses
+    function shuffle(array) {
+        let currentIndex = array.length,  randomIndex;
+      
+        // While there remain elements to shuffle...
+        while (currentIndex != 0) {
+      
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+      
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+      
+        return array;
+      }
     const dispatch=useDispatch()
     const CoursesColor=useSelector((state) => state.favcolor.Dictionary)
     return(
-        <FlatList data={itemList} renderItem={({item}) => (
+        <FlatList data={shuffle(itemList)} renderItem={({item}) => (
             <TouchableOpacity onPress={() => {
                 navigation.navigate('Info', {
                   name: item.value,
                   courseID: item.id,
                 })}}>
                 <View style={styles.item}>
-                    <Image source={{uri:item.onlineImage}} style={StyleConstants.imageView2} />
+                    <Image source={{uri:item.onlineImage}} style={{...StyleConstants.imageView2,marginRight:10}} />
                     <View style={styles.info}>
-                        <Text style={{color: "white", fontSize:30,fontFamily:StyleConstants.mainFont}}>{item.value}</Text>
-                        <View style={{alignItems:"flex-end", flexDirection:"row-reverse"}}>
+                        <Text style={{color: "white", fontSize:20,fontFamily:StyleConstants.mainFont}}>{item.value}</Text>
+                        <Text style={{color:"aliceblue", fontSize:10,fontFamily:StyleConstants.secondaryFont,marginVertical:5}}>
+                            Dictado por {item.Teacher}
+                        </Text>
+                        <View style={styles.bottoms}>
+                            <TouchableOpacity onPress={()=>dispatch(addItem(CoursesList.find(k => k.id === item.id)))}>
+                                <Entypo name="shopping-cart" size={24} color="silver" />
+                            </TouchableOpacity>
                             <TouchableOpacity onPress={()=>{
                                 handle(item)
                                 dispatch(changeFav(item))
                                 }}>
                                 <Entypo name="heart" size={24} color={CoursesColor[item.id]} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={()=>dispatch(addItem(CoursesList.find(k => k.id === item.id)))}>
-                                <Entypo name="shopping-cart" size={24} color="silver" />
-                            </TouchableOpacity>
                         </View>
-                    </View>
-                    <View style={styles.info}>
-                        <Text style={{color:"aliceblue"}}>
-                            Dictado por {item.Teacher}
-                        </Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -49,12 +65,12 @@ function MainList({itemList,handle,navigation}) {
 const styles = StyleSheet.create({
     item:{
         padding: 20,
-        marginVertical: 20,
+        marginVertical: 10,
         borderColor: 'black',
         borderWidth: 1,
         borderRadius: 20,
         backgroundColor: StyleConstants.mainColor,
-        justifyContent: "space-between",
+        flexDirection:"row"
         
       },
     imageView1:{
@@ -70,10 +86,12 @@ const styles = StyleSheet.create({
         alignSelf:"center"
     },
     info:{
-        flexDirection:'row',
-        alignItems: "center",
-        justifyContent: "space-between"
-
+        justifyContent: "space-between",
+    },
+    bottoms:{
+        flexDirection:"row",
+        paddingLeft:5,
+        alignItems:"flex-start"
     }
 })
 

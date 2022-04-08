@@ -16,7 +16,7 @@ const ItemListReducer = (state = INITIAL_STATE, action) => {
                 case "":
                     return {...state,list: CoursesList,SelectedFilter: "Cursos"}
                 case "Fav":
-                    return {...state,list: CoursesList.filter(function(item) {return item.isFav==true}),SelectedFilter: "Cursos"}
+                    return {...state,list: CoursesList.filter(function(item) {return item.isFav==true}),SelectedFilter: "Fav"}
                 default: break
             }
             const newList = CoursesList.filter(function(item) {return item.language==state.filters[index].title})

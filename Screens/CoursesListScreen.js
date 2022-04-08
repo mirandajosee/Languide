@@ -11,20 +11,24 @@ import { selectFilter } from '../store/actions/itemlist.action';
 import { FILTERS } from '../data/filters';
 import MultiSelect from 'react-native-multiple-select';
 import BackgroundImage from '../Components/BackgroundImage';
+import NoFavsScreen from './NoFavsScreen';
 
 function CoursesListScreen({navigation}) {
     const dispatch = useDispatch()
     let itemList=useSelector((state)=> state.itemlist.list)
+    let filter = useSelector((state)=> state.itemlist.SelectedFilter)
     const handleChangeFav = (item) => {
         item.isFav=!item.isFav
       }
     return(
-    <BackgroundImage imageSource={require('../assets/oldmap.jpg')} opacity={0.5}>
+    <BackgroundImage imageSource={require('../assets/oldmap.jpg')} opacity={0.4}>
         
             <MultiSelect items={FILTERS} single={true} uniqueKey="id" displayKey='title' onSelectedItemsChange={(selectedItem)=>{dispatch(selectFilter(selectedItem[0]))}} selectText="Elige un filtro" styleTextDropdown={{marginHorizontal:10}} styleDropdownMenu={{borderRadius:10, borderBottomColor:"black",borderBottomWidth:1}} styleDropdownMenuSubsection={{borderRadius:10}} />
             <Search/>
-        
-            <MainList itemList={itemList} handle={handleChangeFav} navigation={navigation} />
+            {filter=="Fav" && JSON.stringify(itemList)==JSON.stringify([])?
+            <NoFavsScreen />
+            :
+            <MainList itemList={itemList} handle={handleChangeFav} navigation={navigation} />}
     </BackgroundImage>
     )
 }

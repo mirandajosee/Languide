@@ -6,7 +6,7 @@ export default class BackgroundImage extends Component {
     render() {
         const styles = StyleSheetFactory.getSheet(this.props.opacity);
         return(
-            <View style={styles.imageContainer}>
+            <View style={{...styles.imageContainer,...this.props.style}}>
                 <Image style={styles.bgImage} source={this.props.imageSource} />
                 {this.props.children}
             </View>

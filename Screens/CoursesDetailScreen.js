@@ -69,15 +69,18 @@ function CoursesDetailScreen() {
         <View style={{marginBottom:50}}>
           <Image source={{uri:course.onlineImage}} style={StyleConstants.imageView3} />
           <View style={styles.subimage}>
-          <TouchableOpacity onPress={()=>{
-                              handleFav(course)
-                              dispatch(changeFav(course))
-                              }}>
-                              <Entypo name="heart" size={24} color={CourseColor[course.id]} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handlerAddItemCart}>
-              <Entypo name="shopping-cart" size={24} color="silver" />
-          </TouchableOpacity>
+            <Text style={{color:"white",fontFamily:StyleConstants.secondaryFont,fontSize:15}}>Dictado por {course.Teacher}</Text>
+            <View style={{flexDirection:"row-reverse"}}>
+            <TouchableOpacity onPress={()=>{
+                                handleFav(course)
+                                dispatch(changeFav(course))
+                                }}>
+                                <Entypo name="heart" size={24} color={CourseColor[course.id]} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handlerAddItemCart}>
+                <Entypo name="shopping-cart" size={24} color="silver" />
+            </TouchableOpacity>
+            </View>
           </View>
         </View>
         <View style={styles.info}>
@@ -85,7 +88,7 @@ function CoursesDetailScreen() {
           <Text style={styles.description}>{course.description}</Text>
           <Text style={styles.price}>Precio por mes: ${course.price}</Text>
           {locationAllowed?
-          <View style={{flex:1}}> 
+          <View style={styles.location}> 
             <MapView
             initialRegion={{latitude:courseLocation[0],longitude:courseLocation[1],latitudeDelta:JSON.stringify(deltaDistance)!=JSON.stringify([])?(deltaDistance[0]):(0.0922),longitudeDelta:JSON.stringify(deltaDistance)!=JSON.stringify([])?(deltaDistance[1]):(0.0421)}}
             style={{flex:1,width: 300,height: 300}}
@@ -101,15 +104,15 @@ function CoursesDetailScreen() {
             }
             </MapView>
             {JSON.stringify(deltaDistance)!=JSON.stringify([])?
-            <Text style={{...styles.description,color:"white",backgroundColor:StyleConstants.mainColor,padding:5,borderRadius:10}}>
+            <Text style={{...styles.description,color:"white",backgroundColor:StyleConstants.mainColor,padding:5,borderRadius:10,marginVertical:10}}>
               Tu distancia al Instituto es aproximadamente {(((deltaDistance[0]**2+deltaDistance[1]**2)**(0.5))*(6378.137*Math.PI/180)).toFixed(2)}km
             </Text>:
-            <Text style={{...styles.description,color:"white",backgroundColor:StyleConstants.mainColor,padding:5,borderRadius:10}}>
+            <Text style={{...styles.description,color:"white",backgroundColor:StyleConstants.mainColor,padding:5,borderRadius:10,marginVertical:5}}>
             Cargando distancia...
             </Text>}
           </View>
           :
-          <View style={{flex:1}}> 
+          <View style={styles.location}> 
             <MapView
             initialRegion={{latitude:courseLocation[0],longitude:courseLocation[1],latitudeDelta:0.0922,longitudeDelta:0.0421}}
             style={{flex:1,width: 300,height: 300}}
@@ -140,12 +143,13 @@ const styles = StyleSheet.create({
   },
   subimage:{
     flex:1,
-    flexDirection:"row-reverse",
     borderBottomLeftRadius:10,
     borderBottomRightRadius:10,
     backgroundColor: StyleConstants.mainColor,
     padding:10,
-    marginBottom:20
+    marginBottom:20,
+    flexDirection:"row",
+    justifyContent: "space-between"
   },
   info: {
     flex:1,
@@ -170,13 +174,22 @@ const styles = StyleSheet.create({
     borderColor:"black",
     backgroundColor:StyleConstants.terciaryColor,
     padding:10,
-    textAlign:"center"
+    textAlign:"center",
+    borderRadius:15
   },
   description:{
     color:"black",
     fontSize:20,
     fontFamily:StyleConstants.secondaryFont,
     marginVertical:20
+  },
+  location:{
+    flex:1,
+    backgroundColor:"gainsboro",
+    borderWidth:1,
+    borderColor:StyleConstants.mainColor,
+    borderRadius:15,
+    padding:10
   }
 })
 

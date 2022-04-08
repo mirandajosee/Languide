@@ -65,6 +65,12 @@ export const getUser = () => {
   return async dispatch => {
       try {
           const result = await loadUser()
+          if (result.rows._array[0]==undefined){
+            dispatch({
+              type: GET_USER,
+              userData: [],
+          })
+          }
           dispatch({
               type: GET_USER,
               userData: result.rows._array,

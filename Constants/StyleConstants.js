@@ -9,13 +9,14 @@ export default {
     imageView2:{
         //For flags in CoursesList
         //flex:1,
-        height:200,
-        width:250,
+        height:75,
+        width:93.75,
         maxWidth:'100%',
         maxHeight:"100%",
-        minHeight:"50%",
-        minWidth:"50%",
+        minHeight:"40%",
+        minWidth:"40%",
         alignSelf:"center"
+        
     },
     imageView3:{
         //For flags in CourseDetail

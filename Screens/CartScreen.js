@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeItem,confirmCart } from '../store/actions/cart.actions';
 import { BuyCourse } from '../store/actions/bayedcourses.action';
 import { getOrders } from '../store/actions/order.action';
+import BackgroundImage from '../Components/BackgroundImage';
 
 const CartScreen = () => {
   const dispatch = useDispatch()
@@ -23,9 +24,8 @@ const CartScreen = () => {
   const renderItem = (data) => (
     <CartItem item={data.item} onDelete={handlerDeleteItem} />
   );
-
   return (
-    <View style={styles.container}>
+    <BackgroundImage imageSource={require('../assets/cartbackground.jpg')} opacity={0.2} style={styles.container}>
       <View style={styles.list}>
         <FlatList
           data={useSelector((state)=> state.cart.items)}
@@ -47,7 +47,7 @@ const CartScreen = () => {
           </View>
         </TouchableOpacity>
       </View>
-    </View>
+    </BackgroundImage>
   );
 }
 
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     backgroundColor: StyleConstants.secondaryColor,
-    paddingBottom: 120,
+    paddingBottom: 120
   },
   list: {
     flex: 1,

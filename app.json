@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0f4a82"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,13 +17,25 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.mirandajosee.languide",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.mirandajosee.languide",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#0f4a82"
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION"
+      ],
+      "config": {
+        "googleMaps":{
+          "apiKey":"Mi llave de Google Cloud"
+        }
+        }
     },
     "web": {
       "favicon": "./assets/favicon.png"

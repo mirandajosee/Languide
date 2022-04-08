@@ -5,6 +5,7 @@ import { getOrders } from '../store/actions/order.action';
 import StyleConstants from '../Constants/StyleConstants';
 import CartItem from '../Components/CartItem';
 import { BuyCourse } from '../store/actions/bayedcourses.action';
+import BackgroundImage from '../Components/BackgroundImage';
 
 const OrdersScreen = () => {
   const userId = useSelector(state => state.auth.userId);
@@ -25,7 +26,7 @@ const OrdersScreen = () => {
   useEffect(()=>{dispatch(getOrders());},[])
   
   return (
-    <View style={styles.container}>
+    <BackgroundImage imageSource={require('../assets/splash.png')} opacity={0.4} style={styles.container}>
       <Text style={styles.uppertext}>Tus pagos:</Text>
       
       <View style={{flex:1}}>
@@ -35,7 +36,7 @@ const OrdersScreen = () => {
             renderItem={renderItem}
             />
       </View> 
-    </View>
+    </BackgroundImage>
   )
 }
 
@@ -49,9 +50,13 @@ const styles = StyleSheet.create({
     uppertext:{
         alignItems:"center",
         fontSize:StyleConstants.titleFontSize,
-        color: StyleConstants.mainColor,
-        marginVertical: 0,
-        fontFamily:StyleConstants.mainFont
+        color: "white",
+        marginVertical: 10,
+        fontFamily:StyleConstants.mainFont,
+        textAlign:"center",
+        backgroundColor:StyleConstants.mainColor,
+        borderRadius:15,
+        padding:10
       }
 
 });
